@@ -1,0 +1,24 @@
+{
+  "name": "workspace-staff-manager",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Ismail-Dakhlani1440/Workspace-Staff-Manager#readme",
+  "bugs": {
+    "url": "https://github.com/Ismail-Dakhlani1440/Workspace-Staff-Manager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ismail-Dakhlani1440/Workspace-Staff-Manager.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "Workspace_staff_Manager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  }
+}
