@@ -15,27 +15,146 @@
   <title>Workspace-staff-manager</title>
 </head>
 
-<body class="bg-[#f5f6f8]">
+<body class="bg-[#f5f6f8] min-h-screen">
   <header
-    class="bg-[#1A73E8] max-w-[100%] mx-auto flex justify-center items-center text-white shadow-lg rounded-b-2xl md:rounded-b-3xl px-4 py-3 md:px-6 md:py-4 landscape:max-h-[10%] landscape:px-3 landscape:py-2">
+    class="bg-[#1A73E8] mx-auto flex justify-center items-center text-white shadow-lg rounded-b-2xl md:rounded-b-3xl px-4 py-3 md:px-6 md:py-4 landscape:max-h-[10%] landscape:px-3 landscape:py-2">
     <div class="flex items-center space-x-3">
       <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-md">
         <img src="public/Logo.png" alt="logo">
       </div>
       <h1 class="text-sm md:text-xl font-bold">Workspace staff manager</h1>
-    </div>>
+    </div>
   </header>
-  <main class="flex flex-col md:flex-row landscape:flex-row">
-    <section id="sectionEmployee" class="flex flex-col border-2 border-[#00BFA5] rounded-[2vw] m-[2vw] md:min-h-[100%]">
+  <main
+    class="flex flex-col flex-1 h-[85vh] items-center  min-[563px]:flex-row min-[563px]:items-stretch landscape:flex-row p-4 gap-3">
+
+    <!--Employee Section-->
+    <section id="sectionEmployee"
+      class="flex flex-col border-2 border-[#00BFA5] rounded-[2vw] mt-[2vw] shadow-md shadow-[#1A73E8] w-[90%] grow min-[563px]:w-[35%] lg:w-[25%]">
       <input type="text" name="employeeSearchBar" id="employeeSearchBar"
         class="w-90% border-2 border-[#1A73E8] px-4 py-3 rounded-xl m-[2vw] mb-4 md:mb-6" placeholder="Search...">
-      <div id="employeeHolder" class="flex flex-col items-center gap-1.5">
+      <div id="employeeHolder" class="flex flex-col items-center gap-1.5 flex-1 overflow-y-auto">
+
+        <div class="bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-[90%] min-w-0">
+          <img src="public/Ceo.jpg" class="w-8 h-8 rounded-full shrink-0"></img>
+          <div class="flex-1">
+            <p class="text-white text-sm font-medium">Said</p>
+            <p class="text-xs">Ceo</p>
+          </div>
+          <button class="text-[#FDC700] text-sm font-medium hover:text-[#FFDF20] shrink-0">
+            Edit
+          </button>
+        </div>
+
       </div>
       <button
-        class="w-30% md:w-auto bg-[#00BFA5] hover:bg-[#00a38c] text-white font-medium py-3 px-6 m-2 rounded-xl transition-colors duration-300 self-center">
+        class="w-30% md:w-auto bg-[#00BFA5] hover:bg-[#00a38c] text-white font-medium py-3 px-6 m-2 rounded-xl transition-colors duration-300 self-center justify-self-end">
         add Employee
       </button>
     </section>
+
+    <!--Plan Salle-->
+    <section id="planSalle"
+      class="flex flex-col gap-[3vh] w-[90%] min-h-[85%] border-2  border-[#00BFA5] rounded-[2vw] mt-[2vw] min-[563px]:w-[67%] lg:w-[75%] shadow-md shadow-[#1A73E8] items-stretch sm:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 p-4 overflow-y-auto">
+
+      <!--Conference Room-->
+      <div id="conferenceRoom" class="border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Conference Room</h3>
+        <div id="conferenceRoomEmployees" class=" flex flex-col w-full items-center gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button> 
+
+        </div>
+      </div>
+
+      <!--Reception-->
+      <div id="reception" class="border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Reception</h3>
+        <div id="receptionEmployees" class="flex flex-col w-full items-center gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Server Room-->
+      <div id="serverRoom" class="border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Server Room</h3>
+        <div id="serverRoomEmployees" class="flex flex-col items-center w-full gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Security Room-->
+      <div id="securityRoom" class="border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Security Room</h3>
+        <div id="securityRoomEmployees" class=" flex flex-col items-center w-full gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Staff Room-->
+      <div id="staffRoom" class="border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Staff Room</h3>
+        <div id="staffRoomEmployees" class="flex flex-col w-full items-center gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Archive Room-->
+      <div id="archiveRoom" class="border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Archive Room</h3>
+        <div id="archiveRoomEmployees" class="flex flex-col w-full items-center gap-3">
+
+          <!--Employee Card Example in a Room-->
+          <div class="bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-full min-w-0">
+            <img src="public/Ceo.jpg" class="w-8 h-8 rounded-full shrink-0"></img>
+            <div class="flex-1">
+              <p class="text-white text-sm font-medium ">Said</p>
+              <p class="text-xs">Ceo</p>
+            </div>
+            <button
+              class="flex items-center justify-center w-5 h-5 bg-[#FB2C36] text-white rounded-full hover:bg-[#E7000B] shrink-0">
+              ×
+            </button>
+          </div>
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 
 </html>
