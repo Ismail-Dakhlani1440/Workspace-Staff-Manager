@@ -1,1 +1,58 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap');
+
+
+@theme {
+  --font-sans: Poppins, ui-sans-serif, system-ui, sans-serif;
+  --font-poppins: Poppins, ui-sans-serif, system-ui, sans-serif;
+}
+
+#planSalle{
+    background-image:url(../public/path.jpg);
+    background-position: center;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+
+#meetingRoom{
+    background-image:url(../public/meetingRoom.png);
+    background-position: center left;
+    background-size:contain;
+    background-repeat: no-repeat;
+    
+}
+
+#reception{
+    background-image:url(../public/Reception.png);
+    background-position: center left;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+
+#serverRoom{
+    background-image:url(../public/serverRoom.png);
+    background-position: center left;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+
+#securityRoom{
+    background-image:url(../public/securityRoom.png);
+    background-position: center left;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+
+#employeeRoom{
+    background-image:url(../public/employeeRoom.png);
+    background-position: center left;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+
+#archiveRoom{
+    background-image:url(../public/archiveRoom.png);
+    background-position: center left;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
