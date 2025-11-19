@@ -4,8 +4,8 @@
         "fullName": "Said Aabilla",
         "role": "Ceo",
         "photoUrl": "public/Ceo.jpg",
-        "email": "sarah.johnson@company.com",
-        "numTel": "+1-555-0101",
+        "email": "Said.aabilla@company.com",
+        "numTel": "0501234567",
         "experiences": [
             {
                 "company": "Tech Innovations Inc",
@@ -27,7 +27,7 @@
         "role": "Security",
         "photoUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
         "email": "marcus.chen@company.com",
-        "numTel": "+1-555-0102",
+        "numTel": "0612345678",
         "experiences": [
             {
                 "company": "Secure Systems Corp",
@@ -61,7 +61,7 @@
         "role": "IT",
         "photoUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
         "email": "elena.rodriguez@company.com",
-        "numTel": "+1-555-0103",
+        "numTel": "0712345678",
         "experiences": [
             {
                 "company": "Data Systems International",
@@ -77,7 +77,7 @@
         "role": "Receptionist",
         "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
         "email": "david.kim@company.com",
-        "numTel": "+1-555-0104",
+        "numTel": "0623456789",
         "experiences": []
     },
     {
@@ -86,7 +86,7 @@
         "role": "Other",
         "photoUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
         "email": "aisha.patel@company.com",
-        "numTel": "+1-555-0105",
+        "numTel": "0701122334",
         "experiences": [
             {
                 "company": "National Archives",
@@ -126,7 +126,7 @@
         "role": "Cleaning",
         "photoUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
         "email": "james.wilson@company.com",
-        "numTel": "+1-555-0106",
+        "numTel": "0698765432",
         "experiences": [
             {
                 "company": "HR Solutions Pro",
