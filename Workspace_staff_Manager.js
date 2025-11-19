@@ -3,9 +3,10 @@ const planSalle = document.querySelectorAll('.planSalle');
 const employeeRegistrationModal = document.getElementById('employeeModal')
 const roomAssignmentModal = document.getElementById('roomAssignmentModal')
 const employeeModalInputs = document.querySelectorAll('.employeeModalInput')
-let employeeModalExpInputs = document.querySelectorAll('.experienceInput')
 const modalEmployeeCards = document.getElementById('modalEmployeeCards')
-const experienceForms = document.getElementById('experienceForms')
+const experienceForms = document.getElementById('experienceFroms')
+let employeeModalExpInputs = document.querySelectorAll('.experienceInput')
+
 
 console.log(employeeModalInputs)
 console.log(employeeModalExpInputs)
@@ -41,14 +42,14 @@ const initWorkSpace = {
 }
 
 
-function getRoomState(){
+function getRoomState() {
     if (!localStorage.getItem('workSpace')) {
         localStorage.setItem('workSpace', JSON.stringify(initWorkSpace))
     }
     return JSON.parse(localStorage.getItem('workSpace'));
 }
 
-function saveRoomState(data){
+function saveRoomState(data) {
     localStorage.setItem('workSpace', JSON.stringify(data))
 }
 
@@ -70,7 +71,7 @@ async function getEmployees() {
 
 }
 
-function saveEmployees(data){
+function saveEmployees(data) {
     localStorage.setItem('unassignedEmployees', JSON.stringify(data))
 }
 
@@ -88,7 +89,7 @@ async function renderUnassignedEmployees(filter) {
             <p class="text-white text-sm font-medium">${employee.fullName}</p>
             <p class="text-xs">${employee.role}</p>
             </div>
-            <button onclick="editEmployee('${employee.id}')" class="text-[#FDC700] text-sm font-medium hover:text-[#FFDF20] shrink-0">
+            <button onclick="editEmployee('${employee.id}','edit')" class="text-[#FDC700] text-sm font-medium hover:text-[#FFDF20] shrink-0">
                         Edit
                         </button>
                         </div>`
@@ -131,7 +132,7 @@ function renderAssignedEmployees() {
     })
 }
 
-async function renderPerRole(allowedRoles,room) {
+async function renderPerRole(allowedRoles, room) {
     let employees = await getEmployees()
     modalEmployeeCards.innerHTML = ""
     employees.forEach(employee => {
@@ -153,44 +154,44 @@ async function renderPerRole(allowedRoles,room) {
 function renderEmployeesInModal(room) {
     switch (room) {
         case "conferenceRoom":
-            renderPerRole(["Ceo", "Cleaning", "Other", "Receptionist", "IT", "Security"],room)
+            renderPerRole(["Ceo", "Cleaning", "Other", "Receptionist", "IT", "Security"], room)
             break
         case "reception":
-            renderPerRole(["Ceo", "Cleaning", "Receptionist"],room)
+            renderPerRole(["Ceo", "Cleaning", "Receptionist"], room)
             break
         case "serverRoom":
-            renderPerRole(["Ceo", "Cleaning", "IT"],room)
+            renderPerRole(["Ceo", "Cleaning", "IT"], room)
             break
         case "securityRoom":
-            renderPerRole(["Ceo", "Cleaning", "Security"],room)
+            renderPerRole(["Ceo", "Cleaning", "Security"], room)
             break
         case "staffRoom":
-            renderPerRole(["Ceo", "Cleaning", "Other", "Receptionist", "IT", "Security"],room)
+            renderPerRole(["Ceo", "Cleaning", "Other", "Receptionist", "IT", "Security"], room)
             break
         case "archiveRoom":
-            renderPerRole(["Ceo", "Other", "Receptionist", "IT", "Security"],room)
+            renderPerRole(["Ceo", "Other", "Receptionist", "IT", "Security"], room)
             break
     }
 
 }
 
-async function assignRoom(employeeId,room){
-    let id=parseInt(employeeId)
+async function assignRoom(employeeId, room) {
+    let id = parseInt(employeeId)
     let workSpace = getRoomState()
     let employees = await getEmployees()
     employees.forEach(employee => {
-        if(employee.id == id){
+        if (employee.id == id) {
             workSpace[room].employees.push(employee)
         }
     })
-   let newEmployees = employees.filter(employee => {
-    return employee.id !== id
-   })
-   saveEmployees(newEmployees)
-   saveRoomState(workSpace)
-   renderUnassignedEmployees("")
-   renderAssignedEmployees()
-   closeAssignmentModal()
+    let newEmployees = employees.filter(employee => {
+        return employee.id !== id
+    })
+    saveEmployees(newEmployees)
+    saveRoomState(workSpace)
+    renderUnassignedEmployees("")
+    renderAssignedEmployees()
+    closeAssignmentModal()
 }
 
 function placeCard(roomname) {
@@ -198,24 +199,24 @@ function placeCard(roomname) {
     openAssignmentModal()
 }
 
-async function removeCard(employeeId,room) {
+async function removeCard(employeeId, room) {
     let id = parseInt(employeeId)
     let workSpace = await getRoomState()
     let employees = await getEmployees()
-    workSpace[room].employees.forEach(employee=>{
-        if(employee.id == id){
+    workSpace[room].employees.forEach(employee => {
+        if (employee.id == id) {
             employees.push(employee)
         }
     })
     let newlist = workSpace[room].employees.filter(employee => {
-    return employee.id !== id
-   })
-   workSpace[room].employees=newlist
-   saveEmployees(employees)
-   saveRoomState(workSpace)
-   renderUnassignedEmployees("")
-   renderAssignedEmployees()
-   closeAssignmentModal()
+        return employee.id !== id
+    })
+    workSpace[room].employees = newlist
+    saveEmployees(employees)
+    saveRoomState(workSpace)
+    renderUnassignedEmployees("")
+    renderAssignedEmployees()
+    closeAssignmentModal()
 }
 
 function previewImage() {
@@ -223,43 +224,23 @@ function previewImage() {
     imagePreview.setAttribute('src', photoInput.value)
 }
 
-function openInfoModal(employeeId) {
-    let id = parseInt(employeeId)
-}
-
-function closeInfoModal() {
-}
-
-function openEmployeeRegistrationModal() {
-    addExperience()
-    employeeRegistrationModal.classList.remove('hidden')
-}
-
-function closeEmployeeRegistrationModal() {
-    employeeRegistrationModal.classList.add('hidden')
-    experienceForms.innerHTML=""
-}
 
 function addExperience() {
-    experienceForms.innerHTML+=
-    `<div class="bg-white p-4 rounded-lg space-y-4 border-2 border-[#00BFA5]">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            
-                            <div>
-                            <label class="block text-sm font-medium text-[#1A73E8] mb-2">Company</label>
-                            <input type="text" class="experienceInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
-                            </div>
-                            
-                            <div>
+    experienceForms.innerHTML +=
+        `<div class="bg-white p-4 rounded-lg space-y-4 border-2 border-[#00BFA5]">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-[#1A73E8] mb-2">Company</label>
+                    <input type="text" class="experienceInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+                </div>         
+                <div>
                   <label class="block text-sm font-medium text-[#1A73E8] mb-2">Role</label>
                   <input type="text" class="experienceInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
                 </div>
-
                 <div>
                   <label class="block text-sm font-medium text-[#1A73E8] mb-2">Start Date</label>
                   <input type="date" class="experienceInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
                 </div>
-
                 <div>
                   <label class="block text-sm font-medium text-[#1A73E8] mb-2">End Date</label>
                   <input type="date" class="experienceInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
@@ -275,31 +256,47 @@ function addEmployee() {
 async function fillForm(id) {
     let employees = await getEmployees()
     let index = 0
-    employees.forEach(employee=>{
-        if(employee.id == id){
-            employeeModalInputs[0].value=employee.fullName
-            employeeModalInputs[1].value=employee.role
-            employeeModalInputs[2].value=employee.photoUrl
-            employeeModalInputs[3].value=employee.numTel
-            employeeModalInputs[4].value=employee.email
-            employee.experiences.forEach(async experience=> {
-                await addExperience()
+    employees.forEach(employee => {
+        if (employee.id == id) {
+            employeeModalInputs[0].value = employee.fullName
+            employeeModalInputs[1].value = employee.role
+            employeeModalInputs[2].value = employee.photoUrl
+            employeeModalInputs[3].value = employee.numTel
+            employeeModalInputs[4].value = employee.email
+            employee.experiences.forEach(async experience => {
+                addExperience()
+                await new Promise(resolve => setTimeout(resolve, 10))
                 employeeModalExpInputs = document.querySelectorAll('.experienceInput')
-                employeeModalExpInputs[0+index].value = experience.company
-                employeeModalExpInputs[1+index].value = experience.role
-                employeeModalExpInputs[2+index].value = experience.startDate
-                employeeModalExpInputs[3+index].value = experience.endDate
+                employeeModalExpInputs[0 + index].value = experience.company
+                employeeModalExpInputs[1 + index].value = experience.role
+                employeeModalExpInputs[2 + index].value = experience.startDate
+                employeeModalExpInputs[3 + index].value = experience.endDate
                 index = index + 4
             });
         }
-    
+
     })
 }
 
-async function editEmployee(employeeId) {
+async function editEmployee(employeeId, action) {
     let id = parseInt(employeeId)
-    await fillForm(id)
-    openEmployeeRegistrationModal()
+    await fillForm(id, action)
+    employeeRegistrationModal.classList.remove('hidden')
+}
+
+function openEmployeeRegistrationModal() {
+    addExperience()
+    employeeRegistrationModal.classList.remove('hidden')
+}
+
+function closeEmployeeRegistrationModal() {
+    employeeRegistrationModal.classList.add('hidden')
+    experienceForms.innerHTML = ""
+    employeeModalInputs[0].value = ""
+    employeeModalInputs[1].value = ""
+    employeeModalInputs[2].value = ""
+    employeeModalInputs[3].value = ""
+    employeeModalInputs[4].value = ""
 }
 
 function openAssignmentModal() {
@@ -310,6 +307,12 @@ function closeAssignmentModal() {
     roomAssignmentModal.classList.add('hidden')
 }
 
+function openInfoModal(employeeId) {
+    let id = parseInt(employeeId)
+}
+
+function closeInfoModal() {
+}
 
 function initApp() {
     const photoInput = document.getElementById('photoInput');
