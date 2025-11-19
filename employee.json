@@ -1,0 +1,145 @@
+[
+    {
+        "id": 1,
+        "fullName": "Said Aabilla",
+        "role": "Ceo",
+        "photoUrl": "public/Ceo.jpg",
+        "email": "sarah.johnson@company.com",
+        "numTel": "+1-555-0101",
+        "experiences": [
+            {
+                "company": "Tech Innovations Inc",
+                "role": "Senior Manager",
+                "startDate": "2018-03-01",
+                "endDate": "2021-06-30"
+            },
+            {
+                "company": "Global Solutions Ltd",
+                "role": "Team Lead",
+                "startDate": "2015-08-01",
+                "endDate": "2018-02-28"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "fullName": "Marcus Chen",
+        "role": "Security",
+        "photoUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+        "email": "marcus.chen@company.com",
+        "numTel": "+1-555-0102",
+        "experiences": [
+            {
+                "company": "Secure Systems Corp",
+                "role": "Security Manager",
+                "startDate": "2019-09-01",
+                "endDate": "2022-11-30"
+            },
+            {
+                "company": "Cyber Defense LLC",
+                "role": "Security Analyst",
+                "startDate": "2017-04-01",
+                "endDate": "2019-08-31"
+            },
+            {
+                "company": "National Security Agency",
+                "role": "Junior Analyst",
+                "startDate": "2014-07-01",
+                "endDate": "2017-03-31"
+            },
+            {
+                "company": "Security Training Academy",
+                "role": "Trainee",
+                "startDate": "2013-01-01",
+                "endDate": "2014-06-30"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "fullName": "Elena Rodriguez",
+        "role": "IT",
+        "photoUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+        "email": "elena.rodriguez@company.com",
+        "numTel": "+1-555-0103",
+        "experiences": [
+            {
+                "company": "Data Systems International",
+                "role": "System Administrator",
+                "startDate": "2020-01-15",
+                "endDate": "2023-03-31"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "fullName": "David Kim",
+        "role": "Receptionist",
+        "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+        "email": "david.kim@company.com",
+        "numTel": "+1-555-0104",
+        "experiences": []
+    },
+    {
+        "id": 5,
+        "fullName": "Aisha Patel",
+        "role": "Other",
+        "photoUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+        "email": "aisha.patel@company.com",
+        "numTel": "+1-555-0105",
+        "experiences": [
+            {
+                "company": "National Archives",
+                "role": "Senior Archivist",
+                "startDate": "2018-04-01",
+                "endDate": "2021-12-31"
+            },
+            {
+                "company": "University Library",
+                "role": "Document Specialist",
+                "startDate": "2016-01-15",
+                "endDate": "2018-03-31"
+            },
+            {
+                "company": "Historical Society",
+                "role": "Archive Assistant",
+                "startDate": "2014-09-01",
+                "endDate": "2015-12-31"
+            },
+            {
+                "company": "City Museum",
+                "role": "Volunteer",
+                "startDate": "2013-06-01",
+                "endDate": "2014-08-31"
+            },
+            {
+                "company": "Local Library",
+                "role": "Library Assistant",
+                "startDate": "2012-01-01",
+                "endDate": "2013-05-31"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "fullName": "James Wilson",
+        "role": "Cleaning",
+        "photoUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+        "email": "james.wilson@company.com",
+        "numTel": "+1-555-0106",
+        "experiences": [
+            {
+                "company": "HR Solutions Pro",
+                "role": "Team Coordinator",
+                "startDate": "2020-07-01",
+                "endDate": "2023-01-31"
+            },
+            {
+                "company": "Office Management Inc",
+                "role": "Staff Supervisor",
+                "startDate": "2018-02-01",
+                "endDate": "2020-06-30"
+            }
+        ]
+    }
+]

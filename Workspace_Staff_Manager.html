@@ -1,15 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="" ></script>
-    <link href="src/output.css" rel="stylesheet">
-    <title>Workspace-staff-manager</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/x-icon" href="public/Logo.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <script defer src="Workspace_staff_Manager.js"></script>
+  <link href="src/output.css" rel="stylesheet">
+  <title>Workspace-staff-manager</title>
 </head>
-<body>
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+
+<body class="bg-[#f5f6f8] min-h-screen">
+
+  <!--Header-->
+  <header
+    class="bg-[#1A73E8] mx-auto flex justify-center items-center text-white shadow-lg rounded-b-2xl md:rounded-b-3xl px-4 py-3 md:px-6 md:py-4 landscape:max-h-[10%] landscape:px-3 landscape:py-2">
+    <div class="flex items-center flex-row gap-3">
+      <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+        <img src="public/Logo.png" alt="logo">
+      </div>
+      <h1 class="text-sm md:text-xl font-bold">Workspace staff manager</h1>
+    </div>
+  </header>
+
+
+  <!--Room Assignment Modal-->
+  <div id="roomAssignmentModal" class="fixed w-screen h-screen bg-black/50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-[#f5f6f8] rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto border-2 border-[#00BFA5]">
+
+      <div class="bg-[#1A73E8] text-white p-6 rounded-t-2xl flex justify-between items-center">
+        <div>
+          <h2 class="text-2xl font-bold">Assign Employee to Room</h2>
+          <p class="text-blue-100 mt-1">Search and select employees to assign</p>
+        </div>
+      </div>
+
+      <div class="p-6 flex flex-col gap-6">
+
+        <div class="flex flex-col gap-4">
+          <h3 class="text-lg font-semibold text-[#1A73E8] border-b border-[#00BFA5] pb-2">Available Employees</h3>
+
+          <div id="modalEmployeeCards" class="flex flex-col gap-3">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white px-6 py-4 rounded-b-2xl justify-end flex flex-row border-t-2 border-[#00BFA5]">
+        <button id="cancelRoomAssignment"
+          class="px-6 py-3 border-2 border-[#1A73E8] text-[#1A73E8] rounded-lg hover:bg-[#1A73E8] hover:text-white transition-colors duration-300">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Employee Modal-->
+  <div id="employeeModal" class="fixed w-screen h-screen bg-black/50 flex items-center justify-center p-4 z-50 hidden">
+    <div
+      class="bg-[#f5f6f8] rounded-2xl w-full max-w-2xl h-[85vh] overflow-y-auto border-2 self-start border-[#00BFA5]">
+      <div class="bg-[#1A73E8] text-white p-6 rounded-t-2xl">
+        <h2 class="text-2xl font-bold">Add New Employee</h2>
+        <p class="text-blue-100 mt-1">Fill in the employee details</p>
+      </div>
+      <div class="p-6 flex flex-col gap-4">
+
+        <!--Personal Information-->
+        <div class="flex flex-col gap-4">
+          <h3 class="text-lg font-semibold text-[#1A73E8] border-b border-[#00BFA5] pb-2">Personal Information</h3>
+
+          <div>
+            <label class="text-sm font-medium text-[#1A73E8] mb-2">Full Name</label>
+            <input id="nameInput" type="text"
+              class="employeeModalInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-[#1A73E8] mb-2">Role</label>
+            <select id="roleInput" class="employeeModalInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+              <option value="">Select a role</option>
+              <option value="Ceo">CEO</option>
+              <option value="Receptionist">Receptionist</option>
+              <option value="Cleaning">Cleaning</option>
+              <option value="IT">IT</option>
+              <option value="Security">Security</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div>
+              <label class="text-sm font-medium text-[#1A73E8] mb-2">Photo URL</label>
+              <input id="photoInput" type="url"
+                class="employeeModalInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-[#1A73E8] mb-2">Photo Preview</label>
+              <img id="imagePreview" src=""
+                class="w-20 h-20 rounded-full border-2 border-dashed border-[#1A73E8]">
+              </img>
+            </div>
+
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div>
+              <label class="text-sm font-medium text-[#1A73E8] mb-2">Phone Number</label>
+              <input id="telInput" type="tel" class="w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+            </div>
+
+            <div>
+              <label class="text-sm font-medium text-[#1A73E8] mb-2">Email</label>
+              <input id="emailInput" type="email" class="w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+            </div>
+
+          </div>
+
+        </div>
+
+        <!--Experience Section-->
+        <div class="flex flex-col gap-4">
+          <div class="flex justify-between items-center border-b border-[#00BFA5] pb-2">
+            <h3 class="text-lg font-semibold text-[#1A73E8]">Work Experience</h3>
+            <button id="addExperienceButton" type="button"
+              class="bg-[#00BFA5] hover:bg-[#00a38c] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300">
+              Add Experience
+            </button>
+          </div>
+          <div id="experienceFroms" class="flex flex-col gap-4">
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="bg-white px-6 py-4 rounded-b-2xl flex justify-end flex flex-row gap-3 border-t-2 border-[#00BFA5]">
+
+        <button id="closeEmployeeFormButton" type="button"
+          class="px-6 py-3 border-2 border-[#1A73E8] text-[#1A73E8] rounded-lg hover:bg-[#1A73E8] hover:text-white transition-colors duration-300">
+          Cancel
+        </button>
+
+        <button id="addEmployeeFormButton" type="button"
+          class="px-6 py-3 bg-[#00BFA5] hover:bg-[#00a38c] text-white rounded-lg transition-colors duration-300">
+          Add Employee
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--Main-->
+  <main
+    class="flex flex-col flex-1 h-[85vh] items-center  min-[563px]:flex-row min-[563px]:items-stretch landscape:flex-row p-4 gap-3">
+
+    <!--Employee Section-->
+    <section id="sectionEmployee"
+      class="flex flex-col border-2 border-[#00BFA5] rounded-[2vw] mt-[2vw] shadow-md shadow-[#1A73E8] w-[90%] grow min-[563px]:w-[35%] lg:w-[25%]">
+      <h1 class="text-[#1A73E8] self-center pt-4 text-sm md:text-xl font-bold">Unassigned Employees</h1>
+      <input id="employeeFilter" type="text" name="employeeSearchBar" id="employeeSearchBar"
+        class="w-90% border-2 border-[#1A73E8] px-4 py-3 rounded-xl m-[2vw] mb-4 md:mb-6" placeholder="Search...">
+      <div id="employeeHolder" class="flex flex-col items-center gap-1.5 flex-1 overflow-y-auto">
+      </div>
+      <button id="addEmployeeButton"
+        class="w-30% md:w-auto bg-[#00BFA5] hover:bg-[#00a38c] text-white font-medium py-3 px-6 m-2 rounded-xl transition-colors duration-300 self-center justify-self-end">
+        add Employee
+      </button>
+    </section>  
+
+    <!--Plan Salle-->
+    <section id="planSalle"
+      class="flex flex-col gap-[3vh] w-[90%] min-h-[85%] border-2  border-[#00BFA5] rounded-[2vw] mt-[2vw] min-[563px]:w-[67%] lg:w-[75%] shadow-md shadow-[#1A73E8] items-stretch sm:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 p-4 overflow-y-auto">
+
+      <!--Conference Room-->
+      <div id="conferenceRoom"
+        class="planSalle border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Conference Room</h3>
+        <div id="conferenceRoomEmployees" class=" flex flex-col w-full items-center gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Reception-->
+      <div id="reception"
+        class="planSalle border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Reception</h3>
+        <div id="receptionEmployees" class="flex flex-col w-full items-center gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Server Room-->
+      <div id="serverRoom"
+        class="planSalle border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Server Room</h3>
+        <div id="serverRoomEmployees" class="flex flex-col items-center w-full gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Security Room-->
+      <div id="securityRoom"
+        class="planSalle border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Security Room</h3>
+        <div id="securityRoomEmployees" class="flex flex-col items-center w-full gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Staff Room-->
+      <div id="staffRoom"
+        class="planSalle border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Staff Room</h3>
+        <div id="staffRoomEmployees" class="flex flex-col w-full items-center gap-3">
+
+          <!--Place Button Example-->
+          <button
+            class="flex items-center justify-center w-10 h-10 text-white rounded-full bg-[#00BFA5] hover:bg-[#00a38c] shrink-0">
+            +
+          </button>
+
+        </div>
+      </div>
+
+      <!--Archive Room-->
+      <div id="archiveRoom"
+        class="planSalle border border-[#00BFA5] shadow-md rounded-lg p-4 flex flex-col gap-2 items-center">
+        <h3 class="text-[#1A73E8]">Archive Room</h3>
+        <div id="archiveRoomEmployees" class="flex flex-col w-full items-center gap-3">
+
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
+
 </html>
