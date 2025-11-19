@@ -3,8 +3,12 @@ const planSalle = document.querySelectorAll('.planSalle');
 const employeeRegistrationModal = document.getElementById('employeeModal')
 const roomAssignmentModal = document.getElementById('roomAssignmentModal')
 const employeeModalInputs = document.querySelectorAll('.employeeModalInput')
-const employeeModalExpInputs = document.querySelectorAll('.experienceInput')
+let employeeModalExpInputs = document.querySelectorAll('.experienceInput')
 const modalEmployeeCards = document.getElementById('modalEmployeeCards')
+const experienceForms = document.getElementById('experienceForms')
+
+console.log(employeeModalInputs)
+console.log(employeeModalExpInputs)
 
 const initWorkSpace = {
     conferenceRoom: {
@@ -227,16 +231,18 @@ function closeInfoModal() {
 }
 
 function openEmployeeRegistrationModal() {
+    addExperience()
     employeeRegistrationModal.classList.remove('hidden')
 }
 
 function closeEmployeeRegistrationModal() {
     employeeRegistrationModal.classList.add('hidden')
+    experienceForms.innerHTML=""
 }
 
 function addExperience() {
+    experienceForms.innerHTML+=
     `<div class="bg-white p-4 rounded-lg space-y-4 border-2 border-[#00BFA5]">
-                            <h3 class="text-[#1A73E8] font-semibold"> Experience 1 </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             
                             <div>
@@ -266,13 +272,33 @@ function addEmployee() {
 
 }
 
-function fillForm(id) {
-
+async function fillForm(id) {
+    let employees = await getEmployees()
+    let index = 0
+    employees.forEach(employee=>{
+        if(employee.id == id){
+            employeeModalInputs[0].value=employee.fullName
+            employeeModalInputs[1].value=employee.role
+            employeeModalInputs[2].value=employee.photoUrl
+            employeeModalInputs[3].value=employee.numTel
+            employeeModalInputs[4].value=employee.email
+            employee.experiences.forEach(async experience=> {
+                await addExperience()
+                employeeModalExpInputs = document.querySelectorAll('.experienceInput')
+                employeeModalExpInputs[0+index].value = experience.company
+                employeeModalExpInputs[1+index].value = experience.role
+                employeeModalExpInputs[2+index].value = experience.startDate
+                employeeModalExpInputs[3+index].value = experience.endDate
+                index = index + 4
+            });
+        }
+    
+    })
 }
 
-function editEmployee(employeeId) {
+async function editEmployee(employeeId) {
     let id = parseInt(employeeId)
-    fillForm(id)
+    await fillForm(id)
     openEmployeeRegistrationModal()
 }
 
