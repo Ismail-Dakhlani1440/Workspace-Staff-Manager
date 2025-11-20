@@ -29,6 +29,57 @@
   </header>
 
 
+  <!-- Employee Info Modal -->
+<div id="employeeInfoModal" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 hidden">
+  <div class="bg-[#f5f6f8] rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border-2 border-[#00BFA5]">
+    <div class="bg-[#1A73E8] text-white p-6 rounded-t-2xl">
+      <div class="flex items-center gap-4">
+        <!-- PFP -->
+        <img id="employeeInfoPhoto" src="" class="infoElement w-16 h-16 bg-gray-300 rounded-full border-2 border-white object-cover">
+        <div>
+          <h2 id="employeeInfoName" class="infoElement text-2xl font-bold">Employee Name</h2>
+          <p id="employeeInfoRole" class="infoElement text-blue-100">Current Role</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6 flex flex-col gap-6">
+      <div class="grid grid-cols-1 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-[#1A73E8] mb-2">Email Address</label>
+          <p id="employeeInfoEmail" class="infoElement text-gray-900 text-lg bg-white p-3 rounded-lg border border-[#1A73E8]">email@company.com</p>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-[#1A73E8] mb-2">Phone Number</label>
+          <p id="employeeInfoPhone" class="infoElement text-gray-900 text-lg bg-white p-3 rounded-lg border border-[#1A73E8]">0500000000</p>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-[#1A73E8] mb-2">Current Position</label>
+        <p id="employeeInfoPosition" class="infoElement text-gray-900 text-lg bg-white p-3 rounded-lg border border-[#1A73E8]">Position Name</p>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="text-lg font-semibold text-[#1A73E8] border-b border-[#00BFA5] pb-2">Work Experience</h3>
+        
+        <!-- Experiences Container -->
+        <div id="employeeInfoExperiences" class="flex flex-col gap-4">
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white px-6 py-4 rounded-b-2xl justify-end flex flex-row gap-3 border-t-2 border-[#00BFA5]">
+      <button id="closeEmployeeInfoBtn" 
+              class="px-6 py-3 border-2 border-[#1A73E8] text-[#1A73E8] rounded-lg hover:bg-[#1A73E8] hover:text-white transition-colors duration-300">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+
   <!--Room Assignment Modal-->
   <div id="roomAssignmentModal" class="fixed w-screen h-screen bg-black/50 flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-[#f5f6f8] rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto border-2 border-[#00BFA5]">
@@ -104,7 +155,7 @@
 
             <div>
               <label class="text-sm font-medium text-[#1A73E8] mb-2">Photo Preview</label>
-              <img id="imagePreview" src=""
+              <img id="imagePreview" src="public/default.png"
                 class="w-20 h-20 rounded-full border-2 border-dashed border-[#1A73E8]">
               </img>
             </div>
@@ -115,12 +166,16 @@
 
             <div>
               <label class="text-sm font-medium text-[#1A73E8] mb-2">Phone Number</label>
-              <input id="telInput" type="tel" class="w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+              <input id="telInput" type="tel" class="employeeModalInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
             </div>
 
             <div>
               <label class="text-sm font-medium text-[#1A73E8] mb-2">Email</label>
-              <input id="emailInput" type="email" class="w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+              <input id="emailInput" type="email" class="employeeModalInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
+            </div>
+
+            <div class="hidden">
+              <input id="idInput" type="number" class="employeeModalInput w-full px-4 py-3 border-2 border-[#1A73E8] rounded-lg">
             </div>
 
           </div>
@@ -152,7 +207,7 @@
 
         <button id="addEmployeeFormButton" type="button"
           class="px-6 py-3 bg-[#00BFA5] hover:bg-[#00a38c] text-white rounded-lg transition-colors duration-300">
-          Add Employee
+          Save
         </button>
 
       </div>
@@ -172,10 +227,16 @@
         class="w-90% border-2 border-[#1A73E8] px-4 py-3 rounded-xl m-[2vw] mb-4 md:mb-6" placeholder="Search...">
       <div id="employeeHolder" class="flex flex-col items-center gap-1.5 flex-1 overflow-y-auto">
       </div>
+      <div class="flex flex-row justify-between">
+      <button 
+        class="w-[45%] md:w-auto bg-[#00BFA5] hover:bg-[#00a38c] text-white text-sm font-medium py-3 px-6 m-[2%] rounded-xl transition-colors duration-300 self-center justify-self-start">
+        auto place
+      </button>
       <button id="addEmployeeButton"
-        class="w-30% md:w-auto bg-[#00BFA5] hover:bg-[#00a38c] text-white font-medium py-3 px-6 m-2 rounded-xl transition-colors duration-300 self-center justify-self-end">
+        class="w-[45%] md:w-auto bg-[#00BFA5] hover:bg-[#00a38c] text-white text-sm font-medium py-3 px-6 m-[2%] rounded-xl transition-colors duration-300 self-center justify-self-end">
         add Employee
       </button>
+      </div>
     </section>  
 
     <!--Plan Salle-->
