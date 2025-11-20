@@ -1,27 +1,5 @@
 [
     {
-        "id": 1,
-        "fullName": "Said Aabilla",
-        "role": "Ceo",
-        "photoUrl": "public/Ceo.jpg",
-        "email": "Said.aabilla@company.com",
-        "numTel": "0501234567",
-        "experiences": [
-            {
-                "company": "Tech Innovations Inc",
-                "role": "Senior Manager",
-                "startDate": "2018-03-01",
-                "endDate": "2021-06-30"
-            },
-            {
-                "company": "Global Solutions Ltd",
-                "role": "Team Lead",
-                "startDate": "2015-08-01",
-                "endDate": "2018-02-28"
-            }
-        ]
-    },
-    {
         "id": 2,
         "fullName": "Marcus Chen",
         "role": "Security",
