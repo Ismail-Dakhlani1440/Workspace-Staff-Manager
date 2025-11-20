@@ -4,35 +4,44 @@ const employeeRegistrationModal = document.getElementById('employeeModal')
 const roomAssignmentModal = document.getElementById('roomAssignmentModal')
 const employeeModalInputs = document.querySelectorAll('.employeeModalInput')
 const modalEmployeeCards = document.getElementById('modalEmployeeCards')
+const employeeInfoModal= document.getElementById('employeeInfoModal')
 const experienceForms = document.getElementById('experienceFroms')
+const infoElements = document.querySelectorAll('.infoElement')
+const employeeInfoExperiences = document.getElementById('employeeInfoExperiences')
 let employeeModalExpInputs = document.querySelectorAll('.experienceInput')
 
 const initWorkSpace = {
     conferenceRoom: {
         employees: [],
-        maxEmployees: 6
+        maxEmployees: 6,
+        canBeVacant:true
     },
 
     reception: {
         employees: [],
-        maxEmployees: 3
+        maxEmployees: 3,
+        canBeVacant:false
     },
 
     serverRoom: {
         employees: [],
-        maxEmployees: 2
+        maxEmployees: 2,
+        canBeVacant:false
     },
     securityRoom: {
         employees: [],
-        maxEmployees: 2
+        maxEmployees: 2,
+        canBeVacant:false
     },
     staffRoom: {
         employees: [],
-        maxEmployees: 6
+        maxEmployees: 6,
+        canBeVacant:true
     },
     archiveRoom: {
         employees: [],
-        maxEmployees: 1
+        maxEmployees: 1,
+        canBeVacant:true
     },
 
 }
@@ -71,6 +80,18 @@ function saveEmployees(data) {
     localStorage.setItem('unassignedEmployees', JSON.stringify(data))
 }
 
+async function renderConstraints(){
+    let workSpace = getRoomState()
+    Object.keys(workSpace).forEach((room,index) => {
+        if((!workSpace[room].canBeVacant) && (workSpace[room].employees.length == 0)){
+            planSalle[index].classList.add('border-[#FB2C36]')
+            planSalle[index].children[0].classList.add('text-[#FB2C36]')
+        }else{
+            planSalle[index].classList.remove('border-[#FB2C36]')
+            planSalle[index].children[0].classList.remove('text-[#FB2C36]')
+        }
+    })
+}
 
 async function renderUnassignedEmployees(filter) {
     let employees = await getEmployees()
@@ -81,7 +102,7 @@ async function renderUnassignedEmployees(filter) {
             template +=
                 `<div class="bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-[90%] hover:bg-[#1A68D1]">
             <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0"></img>
-            <div onclick="openInfoModal('${employee.id}')" class="flex-1">
+            <div onclick="returnEmployeeInfo('${employee.id}')" class="flex-1">
             <p class="text-white text-sm font-medium">${employee.fullName}</p>
             <p class="text-xs">${employee.role}</p>
             </div>
@@ -94,8 +115,8 @@ async function renderUnassignedEmployees(filter) {
     });
 }
 
-function renderAssignedEmployees() {
-    let workSpace = getRoomState()
+async function renderAssignedEmployees() {
+    let workSpace = await getRoomState()
     planSalle.forEach(room => {
         room.children[1].innerHTML = ""
         Object.keys(workSpace).forEach(key => {
@@ -105,7 +126,7 @@ function renderAssignedEmployees() {
                     template +=
                         `<div class="bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-full hover:bg-[#1A68D1]">
                                 <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0"></img>
-                                <div class="flex-1">
+                                <div class="flex-1" onclick="returnEmployeeInfo('${employee.id}')">
                                 <p class="text-white text-sm font-medium ">${employee.fullName}</p>
                                 <p class="text-xs">${employee.role}</p>
                                 </div>
@@ -168,7 +189,7 @@ function renderEmployeesInModal(room) {
             renderPerRole(["Ceo", "Other", "Receptionist", "IT", "Security"], room)
             break
     }
-
+renderConstraints()
 }
 
 async function assignRoom(employeeId, room) {
@@ -187,6 +208,7 @@ async function assignRoom(employeeId, room) {
     saveRoomState(workSpace)
     renderUnassignedEmployees("")
     renderAssignedEmployees()
+    renderConstraints()
     closeAssignmentModal()
 }
 
@@ -212,6 +234,7 @@ async function removeCard(employeeId, room) {
     saveRoomState(workSpace)
     renderUnassignedEmployees("")
     renderAssignedEmployees()
+    renderConstraints()
     closeAssignmentModal()
 }
 
@@ -219,7 +242,6 @@ function previewImage() {
     const imagePreview = document.getElementById('imagePreview')
     imagePreview.src = photoInput.value || 'public/default.png'
 }
-
 
 function addExperience() {
     let experience = document.createElement('div')
@@ -292,7 +314,7 @@ function validateForm() {
     const phoneRegex = /^0[5-7]\d{8}$/;
     let notvalid = []
     let isvalid = true
-    let index = 0;
+
     employeeModalExpInputs = document.querySelectorAll('.experienceInput')
 
     let fullName = employeeModalInputs[0].value
@@ -309,21 +331,21 @@ function validateForm() {
     if (!email.match(emailRegex)) { isvalid = false; notvalid.push("email") };
 
     if(employeeModalExpInputs.length > 0){
-    for (let i = 1; i < (employeeModalExpInputs.length / 4) + 1; i++) {
-        let company = employeeModalExpInputs[0 + index].value
-        let role = employeeModalExpInputs[1 + index].value
-        let startDate = employeeModalExpInputs[2 + index].value
-        let endDate = employeeModalExpInputs[3 + index].value
+    for (let i = 0; i < (employeeModalExpInputs.length / 4); i+=4) {
+        let company = employeeModalExpInputs[0 + i].value
+        let role = employeeModalExpInputs[1 + i].value
+        let startDate = employeeModalExpInputs[2 + i].value
+        let endDate = employeeModalExpInputs[3 + i].value
         let experience = {
-            company: company,
-            role: role,
-            startDate: startDate,
-            endDate: endDate,
+            company,
+            role,
+            startDate,
+            endDate,
         }
-        if (startDate > endDate || !startDate || !endDate) {
-            isvalid = false; notvalid.push(`Date ${i}`)
+        if (startDate > endDate ||!company ||!role || !startDate || !endDate) {
+            isvalid = false; notvalid.push(`experience`)
         };
-        index += 4
+
         experiences.push(experience)
     }
     }
@@ -333,7 +355,6 @@ function validateForm() {
     }else{
         errorMsg(notvalid)
     }
-
 }
 
 async function updateEmployee(id,fullName,role,photoUrl,numTel,email,experiences){
@@ -357,12 +378,12 @@ async function updateEmployee(id,fullName,role,photoUrl,numTel,email,experiences
     }else{
         let employee = {
             id: generateId() ,
-            fullName: fullName,
-            role: role,
+            fullName,
+            role,
             photoUrl: photoUrl||'public/default.png',
-            email: email,
-            numTel: numTel,
-            experiences: experiences
+            email,
+            numTel,
+            experiences
         }
         employees.push(employee)
     }
@@ -371,10 +392,74 @@ async function updateEmployee(id,fullName,role,photoUrl,numTel,email,experiences
     closeEmployeeRegistrationModal()
 }
 
-async function editEmployee(employeeId, action) {
+async function editEmployee(employeeId) {
     let id = parseInt(employeeId)
     await fillForm(id)
     openEmployeeRegistrationModal()
+}
+
+async function returnEmployeeInfo(employeeId){
+    let employees = await getEmployees()
+    let workSpace = await getRoomState()
+    let id = parseInt(employeeId)
+    employees.forEach(employee=>{
+        if(employee.id == id){
+            renderEmployeeInfo(employee)
+        }
+    })
+    Object.keys(workSpace).forEach(key => {
+         workSpace[key].employees.forEach(employee => {
+            if(employee.id == id){
+                renderEmployeeInfo(employee,key)
+            }
+         })
+    })
+}
+
+function renderEmployeeInfo(employee,key=null){
+    console.log(infoElements)
+    infoElements[0].src = employee.photoUrl
+    infoElements[1].textContent = employee.fullName
+    infoElements[2].textContent = employee.role
+    infoElements[3].textContent = employee.email
+    infoElements[4].textContent = employee.numTel
+    infoElements[5].textContent = key||"Unassigned "
+    employeeInfoExperiences.innerHTML=""
+    employee.experiences.forEach((experience,index) =>{
+        employeeInfoExperiences.innerHTML+=
+                                    `<h1>Experience ${index +1}</h2>`
+        showExperience(experience)
+    })
+    openInfoModal()
+}
+
+function showExperience(experience) {
+    
+    let experienceContainer = document.createElement('div')
+    experience.className = "bg-white p-4 rounded-lg border-2 border-[#00BFA5]";
+    experienceContainer.innerHTML=
+    
+            `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm font-medium text-[#1A73E8] mb-1">Company</label>
+                <p class="text-gray-900">${experience.company}</p>
+              </div>
+              <div>
+                <label class="text-sm font-medium text-[#1A73E8] mb-1">Role</label>
+                <p class="text-gray-900">${experience.role}</p>
+              </div>
+              <div>
+                <label class="text-sm font-medium text-[#1A73E8] mb-1">Start Date</label>
+                <p class="text-gray-900">${experience.startDate}</p>
+              </div>
+              <div>
+                <label class="text-sm font-medium text-[#1A73E8] mb-1">End Date</label>
+                <p class="text-gray-900">${experience.endDate}</p>
+              </div>
+            </div>`
+
+    employeeInfoExperiences.appendChild(experienceContainer)
+
 }
 
 function openEmployeeRegistrationModal() {
@@ -384,12 +469,10 @@ function openEmployeeRegistrationModal() {
 function closeEmployeeRegistrationModal() {
     employeeRegistrationModal.classList.add('hidden')
     experienceForms.innerHTML = ""
-    employeeModalInputs[0].value = ""
-    employeeModalInputs[1].value = ""
-    employeeModalInputs[2].value = ""
-    employeeModalInputs[3].value = ""
-    employeeModalInputs[4].value = ""
-    employeeModalInputs[5].value = ""
+    employeeModalInputs.forEach(employeeModalInput=>{
+        employeeModalInput.value=""
+    })
+    imagePreview.src='public/default.png'
 }
 
 function openAssignmentModal() {
@@ -398,13 +481,15 @@ function openAssignmentModal() {
 
 function closeAssignmentModal() {
     roomAssignmentModal.classList.add('hidden')
+    renderConstraints()
 }
 
-function openInfoModal(employeeId) {
-    let id = parseInt(employeeId)
+function openInfoModal() {
+    employeeInfoModal.classList.remove('hidden')
 }
 
 function closeInfoModal() {
+    employeeInfoModal.classList.add('hidden')
 }
 
 function initApp() {
@@ -415,7 +500,9 @@ function initApp() {
     const addExperienceButton = document.getElementById('addExperienceButton')
     const cancelRoomAssignment = document.getElementById('cancelRoomAssignment')
     const addEmployeeFormButton = document.getElementById('addEmployeeFormButton')
+    const closeEmployeeInfoBtn = document.getElementById('closeEmployeeInfoBtn')
 
+    closeEmployeeInfoBtn.addEventListener('click',closeInfoModal)
     cancelRoomAssignment.addEventListener('click', closeAssignmentModal)
     addExperienceButton.addEventListener('click', addExperience)
     employeeFilter.addEventListener('input', () => {
@@ -428,6 +515,7 @@ function initApp() {
 
     renderUnassignedEmployees("")
     renderAssignedEmployees()
+    renderConstraints()
 }
 
 initApp()

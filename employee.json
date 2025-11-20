@@ -121,24 +121,134 @@
         ]
     },
     {
-        "id": 6,
-        "fullName": "James Wilson",
-        "role": "Cleaning",
-        "photoUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
-        "email": "james.wilson@company.com",
-        "numTel": "0698765432",
+        "id": 7,
+        "fullName": "Meryem El Amrani",
+        "role": "IT",
+        "photoUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80",
+        "email": "meryem.elamrani@company.com",
+        "numTel": "0678890012",
         "experiences": [
             {
-                "company": "HR Solutions Pro",
-                "role": "Team Coordinator",
-                "startDate": "2020-07-01",
-                "endDate": "2023-01-31"
+                "company": "CloudMatrix Solutions",
+                "role": "IT Support Engineer",
+                "startDate": "2019-10-01",
+                "endDate": "2023-06-30"
             },
             {
-                "company": "Office Management Inc",
-                "role": "Staff Supervisor",
+                "company": "DigitalCare SARL",
+                "role": "Junior Technician",
+                "startDate": "2017-04-01",
+                "endDate": "2019-09-30"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "fullName": "Youssef Khalidi",
+        "role": "Security",
+        "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80",
+        "email": "youssef.khalidi@company.com",
+        "numTel": "0654321189",
+        "experiences": [
+            {
+                "company": "FortGuard Services",
+                "role": "Security Agent",
+                "startDate": "2020-02-01",
+                "endDate": "2023-05-31"
+            },
+            {
+                "company": "SafeNet Corp",
+                "role": "Surveillance Assistant",
+                "startDate": "2016-08-01",
+                "endDate": "2020-01-31"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "fullName": "Sara Bouchaib",
+        "role": "Receptionist",
+        "photoUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=100&q=80",
+        "email": "sara.bouchaib@company.com",
+        "numTel": "0612234567",
+        "experiences": [
+            {
+                "company": "GrandView Hotel",
+                "role": "Front Desk Agent",
+                "startDate": "2018-09-01",
+                "endDate": "2022-12-31"
+            },
+            {
+                "company": "City Business Center",
+                "role": "Reception Assistant",
+                "startDate": "2016-01-01",
+                "endDate": "2018-08-31"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "fullName": "Othmane Hafidi",
+        "role": "Cleaning",
+        "photoUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80",
+        "email": "othmane.hafidi@company.com",
+        "numTel": "0689907766",
+        "experiences": [
+            {
+                "company": "CleanPro Services",
+                "role": "Cleaning Supervisor",
+                "startDate": "2019-05-01",
+                "endDate": "2023-03-31"
+            },
+            {
+                "company": "FreshWork Facilities",
+                "role": "Cleaner",
+                "startDate": "2015-03-01",
+                "endDate": "2019-04-30"
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "fullName": "Linda O’Connor",
+        "role": "Other",
+        "photoUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=100&q=80",
+        "email": "linda.oconnor@company.com",
+        "numTel": "0703344556",
+        "experiences": [
+            {
+                "company": "National Museum",
+                "role": "Curatorial Assistant",
                 "startDate": "2018-02-01",
-                "endDate": "2020-06-30"
+                "endDate": "2022-10-31"
+            },
+            {
+                "company": "Cultural Heritage Group",
+                "role": "Documentation Clerk",
+                "startDate": "2016-06-01",
+                "endDate": "2018-01-31"
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "fullName": "Karim Mouline",
+        "role": "Cleaning",
+        "photoUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=100&q=80",
+        "email": "karim.mouline@company.com",
+        "numTel": "0509988776",
+        "experiences": [
+            {
+                "company": "UltraTech Global",
+                "role": "Executive Director",
+                "startDate": "2019-01-01",
+                "endDate": "2023-04-30"
+            },
+            {
+                "company": "FutureCorp SARL",
+                "role": "Operations Manager",
+                "startDate": "2016-03-01",
+                "endDate": "2018-12-31"
             }
         ]
     }
