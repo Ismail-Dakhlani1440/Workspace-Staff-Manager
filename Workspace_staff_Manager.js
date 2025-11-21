@@ -13,7 +13,7 @@ let employeeModalExpInputs = document.querySelectorAll('.experienceInput')
 const initWorkSpace = {
     conferenceRoom: {
         employees: [],
-        maxEmployees: 6,
+        maxEmployees: 11,
         canBeVacant: true
     },
 
@@ -35,7 +35,7 @@ const initWorkSpace = {
     },
     staffRoom: {
         employees: [],
-        maxEmployees: 6,
+        maxEmployees: 11,
         canBeVacant: true
     },
     archiveRoom: {
@@ -100,9 +100,9 @@ async function renderUnassignedEmployees(filter) {
         let template = ""
         if (employee.fullName.toLowerCase().includes(filter.toLowerCase())) {
             template +=
-                `<div class="bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-[90%] hover:bg-[#1A68D1]">
-            <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0"></img>
-            <div onclick="returnEmployeeInfo('${employee.id}')" class="flex-1">
+                `<div draggable="true" class="empoyeeCard bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-[90%] hover:bg-[#1A68D1]">
+            <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0" onclick="returnEmployeeInfo('${employee.id}')"></img>
+            <div  class="flex-1">
             <p class="text-white text-sm font-medium">${employee.fullName}</p>
             <p class="text-xs">${employee.role}</p>
             </div>
@@ -124,9 +124,9 @@ async function renderAssignedEmployees() {
                 let template = ""
                 workSpace[key].employees.forEach(employee => {
                     template +=
-                        `<div class="bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-full hover:bg-[#1A68D1]">
-                                <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0"></img>
-                                <div class="flex-1" onclick="returnEmployeeInfo('${employee.id}')">
+                        `<div draggable="true" class="empoyeeCard bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-full hover:bg-[#1A68D1]">
+                                <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0" onclick="returnEmployeeInfo('${employee.id}')"></img>
+                                <div class="flex-1">
                                 <p class="text-white text-sm font-medium ">${employee.fullName}</p>
                                 <p class="text-xs">${employee.role}</p>
                                 </div>
@@ -171,19 +171,19 @@ async function renderEmployeesInModal(allowedRoles, room) {
 function returnAllowedEmployees(room) {
     switch (room) {
         case "conferenceRoom":
-            return ["Ceo", "Cleaning", "Other", "Receptionist", "IT", "Security"]
+            return ["Ceo", "Other", "Receptionist", "IT", "Security", "Cleaning"]
             break
         case "reception":
-            return ["Ceo", "Cleaning", "Receptionist"]
+            return ["Ceo", "Receptionist", "Cleaning"]
             break
         case "serverRoom":
-            return ["Ceo", "Cleaning", "IT"]
+            return ["Ceo", "IT", "Cleaning"]
             break
         case "securityRoom":
-            return ["Ceo", "Cleaning", "Security"]
+            return ["Ceo", "Security", "Cleaning"]
             break
         case "staffRoom":
-            return ["Ceo", "Cleaning", "Other", "Receptionist", "IT", "Security"]
+            return ["Ceo", "Other", "Receptionist", "IT", "Security", "Cleaning"]
             break
         case "archiveRoom":
             return ["Ceo", "Other", "Receptionist", "IT", "Security"]
@@ -464,14 +464,30 @@ function showExperience(experience) {
 async function autoAssign() {
     let employees = await getEmployees()
     let workSpace = await getRoomState()
+    let importantRoomsFilled = 0
     const workSpaceKeys = Object.keys(workSpace)
+    priorityRooms = workSpaceKeys.filter(room => {
+        return !workSpace[room].canBeVacant
+    })
     console.log(workSpaceKeys)
     while (employees.length != 0) {
         let randomRoomindex = getRandomIndex(workSpaceKeys.length)
         let randomEmployeeIndex = getRandomIndex(employees.length)
         let randomRoom = workSpaceKeys[randomRoomindex]
-
-        if ((returnAllowedEmployees(randomRoom).includes(employees[randomEmployeeIndex].role)) && workSpace[randomRoom].employees.length < workSpace[randomRoom].maxEmployees) {
+        
+        if (importantRoomsFilled < 3) {
+            priorityRooms.forEach(room => {
+                let importantRoles = returnAllowedEmployees(room)
+                importantRoles.pop()
+                if ((importantRoles.includes(employees[randomEmployeeIndex].role)) && (workSpace[room].employees.length < 1)) {
+                    workSpace[room].employees.push(employees[randomEmployeeIndex])
+                    employees = employees.filter(employee => {
+                        return employee != employees[randomEmployeeIndex]
+                    })
+                    importantRoomsFilled++
+                }
+            })
+        }else if ((returnAllowedEmployees(randomRoom).includes(employees[randomEmployeeIndex].role)) && workSpace[randomRoom].employees.length < workSpace[randomRoom].maxEmployees) {
             workSpace[randomRoom].employees.push(employees[randomEmployeeIndex])
             employees = employees.filter(employee => {
                 return employee != employees[randomEmployeeIndex]
@@ -487,6 +503,13 @@ async function autoAssign() {
 
 function getRandomIndex(max) {
     return Math.floor(Math.random() * max)
+}
+
+function deployDragEventListener(){
+    let empoyeeCards = document.querySelectorAll('.')
+    empoyeeCards.forEach(empoyeeCard => {
+        empoyeeCard.addEventListener('dragstart')
+    });
 }
 
 function openEmployeeRegistrationModal() {
