@@ -35,7 +35,7 @@
     <div class="bg-[#1A73E8] text-white p-6 rounded-t-2xl">
       <div class="flex items-center gap-4">
         <!-- PFP -->
-        <img id="employeeInfoPhoto" src="" class="infoElement w-16 h-16 bg-gray-300 rounded-full border-2 border-white object-cover">
+        <img id="employeeInfoPhoto" src="public/default.png" alt="defaultpng" class="infoElement w-16 h-16 bg-gray-300 rounded-full border-2 border-white object-cover">
         <div>
           <h2 id="employeeInfoName" class="infoElement text-2xl font-bold">Employee Name</h2>
           <p id="employeeInfoRole" class="infoElement text-blue-100">Current Role</p>
@@ -155,9 +155,8 @@
 
             <div>
               <label class="text-sm font-medium text-[#1A73E8] mb-2">Photo Preview</label>
-              <img id="imagePreview" src="public/default.png"
+              <img id="imagePreview" src="public/default.png" alt="defaultpng"
                 class="w-20 h-20 rounded-full border-2 border-dashed border-[#1A73E8]">
-              </img>
             </div>
 
           </div>
@@ -222,8 +221,8 @@
     <!--Employee Section-->
     <section id="sectionEmployee"
       class="flex flex-col border-2 border-[#00BFA5] rounded-[2vw] mt-[2vw] shadow-md shadow-[#1A73E8] w-[90%] grow min-[563px]:w-[35%] lg:w-[25%]">
-      <h1 class="text-[#1A73E8] self-center pt-4 text-sm md:text-xl font-bold">Unassigned Employees</h1>
-      <input id="employeeFilter" type="text" name="employeeSearchBar" id="employeeSearchBar"
+      <h2 class="text-[#1A73E8] self-center pt-4 text-sm md:text-xl font-bold">Unassigned Employees</h2>
+      <input id="employeeFilter" type="text" name="employeeSearchBar"
         class="w-90% border-2 border-[#1A73E8] px-4 py-3 rounded-xl m-[2vw] mb-4 md:mb-6" placeholder="Search...">
       <div id="employeeHolder" class="flex flex-col items-center gap-1.5 flex-1 overflow-y-auto">
       </div>
