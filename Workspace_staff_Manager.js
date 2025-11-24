@@ -46,7 +46,6 @@ const initWorkSpace = {
 
 }
 
-
 function getRoomState() {
     if (!localStorage.getItem('workSpace')) {
         localStorage.setItem('workSpace', JSON.stringify(initWorkSpace))
@@ -356,6 +355,10 @@ function validateForm() {
     }
 }
 
+function errorMsg(unvalidItems) {
+    console.log(unvalidItems)
+}
+
 async function updateEmployee(id, fullName, role, photoUrl, numTel, email, experiences) {
     let employees = await getEmployees()
     if (id) {
@@ -471,9 +474,8 @@ async function autoAssign() {
     })
     console.log(workSpaceKeys)
     while (employees.length != 0) {
-        let randomRoomindex = getRandomIndex(workSpaceKeys.length)
         let randomEmployeeIndex = getRandomIndex(employees.length)
-        let randomRoom = workSpaceKeys[randomRoomindex]
+        let randomRoom = workSpaceKeys[getRandomIndex(workSpaceKeys.length)]
         
         if (importantRoomsFilled < 3) {
             priorityRooms.forEach(room => {
@@ -506,9 +508,15 @@ function getRandomIndex(max) {
 }
 
 function deployDragEventListener(){
-    let empoyeeCards = document.querySelectorAll('.')
+    let empoyeeCards = document.querySelectorAll('.empoyeeCard')
     empoyeeCards.forEach(empoyeeCard => {
-        empoyeeCard.addEventListener('dragstart')
+        empoyeeCard.addEventListener('dragstart',function(e){
+            let selected = e.id
+            planSalle.forEach(room =>{
+                
+            })
+
+        })
     });
 }
 
