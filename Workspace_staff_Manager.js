@@ -9,6 +9,8 @@ const experienceForms = document.getElementById('experienceFroms')
 const infoElements = document.querySelectorAll('.infoElement')
 const employeeInfoExperiences = document.getElementById('employeeInfoExperiences')
 let employeeModalExpInputs = document.querySelectorAll('.experienceInput')
+let selected
+let pickedFrom
 
 const initWorkSpace = {
     conferenceRoom: {
@@ -45,7 +47,6 @@ const initWorkSpace = {
     },
 
 }
-
 
 function getRoomState() {
     if (!localStorage.getItem('workSpace')) {
@@ -100,7 +101,7 @@ async function renderUnassignedEmployees(filter) {
         let template = ""
         if (employee.fullName.toLowerCase().includes(filter.toLowerCase())) {
             template +=
-                `<div draggable="true" class="empoyeeCard bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-[90%] hover:bg-[#1A68D1]">
+                `<div id="${employee.id}" draggable="true" ondragstart="handleDragStart(event,'unassigned')" class="empoyeeCard bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-[90%] hover:bg-[#1A68D1]">
             <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0" onclick="returnEmployeeInfo('${employee.id}')"></img>
             <div  class="flex-1">
             <p class="text-white text-sm font-medium">${employee.fullName}</p>
@@ -124,7 +125,7 @@ async function renderAssignedEmployees() {
                 let template = ""
                 workSpace[key].employees.forEach(employee => {
                     template +=
-                        `<div draggable="true" class="empoyeeCard bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-full hover:bg-[#1A68D1]">
+                        `<div id="${employee.id}" draggable="true" ondragstart="handleDragStart(event,'${key}')" class="empoyeeCard bg-[#1A73E8] rounded-lg p-2 shadow-sm flex gap-4 items-center w-full hover:bg-[#1A68D1]">
                                 <img src="${employee.photoUrl}" class="w-8 h-8 rounded-full shrink-0" onclick="returnEmployeeInfo('${employee.id}')"></img>
                                 <div class="flex-1">
                                 <p class="text-white text-sm font-medium ">${employee.fullName}</p>
@@ -324,7 +325,7 @@ function validateForm() {
     let id = employeeModalInputs[5].value
     let experiences = []
 
-    if (!fullName.match(nameRegex)) { isvalid = false; notvalid.push("nom") }
+    if (!fullName.match(nameRegex)) { isvalid = false; notvalid.push("name") }
     if (!role) { isvalid = false; notvalid.push("role") }
     if (!numTel.match(phoneRegex)) { isvalid = false; notvalid.push("phone") };
     if (!email.match(emailRegex)) { isvalid = false; notvalid.push("email") };
@@ -342,7 +343,7 @@ function validateForm() {
                 endDate,
             }
             if (startDate > endDate || !company || !role || !startDate || !endDate) {
-                isvalid = false; notvalid.push(`experience`)
+                isvalid = false; notvalid.push(`experience ${i / 4 + 1}`)
             };
 
             experiences.push(experience)
@@ -354,6 +355,13 @@ function validateForm() {
     } else {
         errorMsg(notvalid)
     }
+}
+
+function errorMsg(unvalidItems) {
+    const errorSection = document.getElementById('errorMsg')
+    let error = `the fields ${unvalidItems} are unvalid !!!`
+
+    errorSection.textContent = error
 }
 
 async function updateEmployee(id, fullName, role, photoUrl, numTel, email, experiences) {
@@ -471,10 +479,9 @@ async function autoAssign() {
     })
     console.log(workSpaceKeys)
     while (employees.length != 0) {
-        let randomRoomindex = getRandomIndex(workSpaceKeys.length)
         let randomEmployeeIndex = getRandomIndex(employees.length)
-        let randomRoom = workSpaceKeys[randomRoomindex]
-        
+        let randomRoom = workSpaceKeys[getRandomIndex(workSpaceKeys.length)]
+
         if (importantRoomsFilled < 3) {
             priorityRooms.forEach(room => {
                 let importantRoles = returnAllowedEmployees(room)
@@ -487,7 +494,7 @@ async function autoAssign() {
                     importantRoomsFilled++
                 }
             })
-        }else if ((returnAllowedEmployees(randomRoom).includes(employees[randomEmployeeIndex].role)) && workSpace[randomRoom].employees.length < workSpace[randomRoom].maxEmployees) {
+        } else if ((returnAllowedEmployees(randomRoom).includes(employees[randomEmployeeIndex].role)) && workSpace[randomRoom].employees.length < workSpace[randomRoom].maxEmployees) {
             workSpace[randomRoom].employees.push(employees[randomEmployeeIndex])
             employees = employees.filter(employee => {
                 return employee != employees[randomEmployeeIndex]
@@ -505,11 +512,44 @@ function getRandomIndex(max) {
     return Math.floor(Math.random() * max)
 }
 
-function deployDragEventListener(){
-    let empoyeeCards = document.querySelectorAll('.')
-    empoyeeCards.forEach(empoyeeCard => {
-        empoyeeCard.addEventListener('dragstart')
-    });
+function handleDragStart(ev, from) {
+    selected = ev.target
+    pickedFrom = from
+}
+
+async function handleDrop(ev, room = null) {
+    let workSpace = await getRoomState()
+    let employees = await getEmployees()
+    if (pickedFrom == 'unassigned') {
+        if (room) {
+            let selectedEmployee = employees.find(employee => {
+                return employee.id == selected.id
+            })
+
+            let allowedRoles = returnAllowedEmployees(room.id)
+            if (workSpace[room.id].employees.length < workSpace[room.id].maxEmployees && allowedRoles.includes(selectedEmployee.role)) {
+                assignRoom(selectedEmployee.id, room.id)
+            } else {
+                alert("not possible")
+            }
+        }
+    } else {
+        await removeCard(selected.id, pickedFrom)
+        employees = await getEmployees()
+        workSpace = await getRoomState()
+        if (room) {
+            let selectedEmployee = employees.find(employee => {
+                return employee.id == selected.id
+            })
+            let allowedRoles = returnAllowedEmployees(room.id)
+            if (workSpace[room.id].employees.length < workSpace[room.id].maxEmployees && allowedRoles.includes(selectedEmployee.role)) {
+                assignRoom(selectedEmployee.id, room.id)
+            } else {
+                assignRoom(selectedEmployee.id, pickedFrom)
+                alert("not possible")
+            }
+        }
+    }
 }
 
 function openEmployeeRegistrationModal() {
@@ -552,6 +592,23 @@ function initApp() {
     const addEmployeeFormButton = document.getElementById('addEmployeeFormButton')
     const closeEmployeeInfoBtn = document.getElementById('closeEmployeeInfoBtn')
     const autoAssignButton = document.getElementById('autoAssignButton')
+
+    planSalle.forEach(room => {
+        room.addEventListener('dragover', function (ev) {
+            ev.preventDefault()
+        })
+        room.addEventListener('drop', (ev) => {
+            handleDrop(ev, room)
+        })
+    })
+
+    employeeHolder.addEventListener('dragover', function (ev) {
+        ev.preventDefault()
+    })
+    employeeHolder.addEventListener('drop', (ev) => {
+        handleDrop(ev)
+    })
+
 
     closeEmployeeInfoBtn.addEventListener('click', closeInfoModal)
     cancelRoomAssignment.addEventListener('click', closeAssignmentModal)
